@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>kidney prediction</title>
+  <style>
+    /* CSS for navigation bar */
+    .navbar {
+      background-color: #0b0b0b;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .navbar ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    .navbar li {
+      margin-right: 10px;
+      color: white;
+    }
+
+    .navbar li:last-child {
+      margin-right: 0;
+    }
+    
+    
+    /* CSS for container */
+    .container {
+      border: 2px dashed #ccc;
+      padding: 20px;
+      text-align: center;
+      margin: 20px auto;
+      width: 300px;
+    }
+
+    /* CSS for image display area */
+    .image-display {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .image-display img {
+      max-width: 100%;
+      max-height: 300px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+          <li><a href="#">Home</a></li>
+        </ul>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+  <div class="container" id="imageContainer" ondrop="dropHandler(event)" ondragover="dragOverHandler(event)">
+    <p>Drag and drop an image here or click to browse files.</p>
+    <input type="file" id="fileInput" style="display: none;" accept="image/*" onchange="fileInputChange(event)">
+  </div>
+
+  <div class="image-display">
+    <h3>Selected Image:</h3>
+    <img id="selectedImage" src="#" alt="Selected Image">
+  </div>
+
+  <script>
+    function dragOverHandler(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    }
+
+    function dropHandler(event) {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0];
+      handleFile(file);
+    }
+
+    function fileInputChange(event) {
+      const file = event.target.files[0];
+      handleFile(file);
+    }
+
+    function handleFile(file) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const selectedImage = document.getElementById('selectedImage');
+        selectedImage.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
